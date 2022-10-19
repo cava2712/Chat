@@ -1,0 +1,63 @@
+﻿@page "/Register"
+@inject UserManager UserManager
+@inject NavigationManager NavigationManager
+@inject IToastService ToastService
+
+
+<!-- Pagina di registrazione dove crei l'utente con la passoword-->
+
+<div class="center">
+    <div class="card">
+        <h3>Register</h3>
+        <label>Username:</label><input type="text" @bind="Username"/><br/>
+        <label>Password:</label><input type="text" @bind="Password"/><br/>
+        <label>Conferma password:</label><input type="text" @bind="Password2"/><br/>
+        <button class="btn-primary" @onclick="OnRegister">login</button>
+    </div>
+</div>
+
+@Controllo
+
+@code {
+    public string Username { get; set; }
+    public string Password { get; set; }
+    public string Password2 { get; set; }
+    public string Controllo { get; set; }
+
+    public async void OnRegister()
+    {
+        if (Password == Password2)
+        {
+            UserManager.HandleRegister(Username, Password);
+        }
+        else
+        {
+            ToastService.ShowError("ERRORE:Le password non coincidono");
+        }
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        UserManager.OnUserChanged += HandleUserChanged;
+        UserManager.OnErrorRegister += HandleError;
+        return base.OnInitializedAsync();
+    }
+    private void HandleError()
+    {
+        ToastService.ShowError("ERRORE:Username o password sbagliati");
+    }
+    private void HandleUserChanged()
+    {
+        if (UserManager.Utente != null)
+        {
+            if(NavigationManager.Uri=="https://localhost:7049/register")
+                ToastService.ShowSuccess("Hai creato il tuo profilo!!!", "Congratulations!");
+            NavigationManager.NavigateTo("/");
+        }
+        else //non dovrebbe mai andarci
+        {
+            Controllo = "Username già presente";
+        }
+    }
+
+}

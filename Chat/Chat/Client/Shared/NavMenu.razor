@@ -1,0 +1,85 @@
+﻿@using System.Data
+@using Chat.Shared
+@inject UserManager UserManager
+@inject MessagesManager MessagesManager
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">
+
+            @if (UserManager.Utente != null)
+            {
+                <p>Chat: @UserManager.Utente.Username</p>
+            }
+            else
+            {
+                <p>Chat:</p>
+            }
+        </a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-person" aria-hidden="true"></span> Contatti
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="fattureRicevute">
+                <span class="oi oi-menu" aria-hidden="true"></span> Fatture Ricevute
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="chatGlobale">
+                <span class="oi oi-comment-square" aria-hidden="true"></span> Chat Globale
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            @if (UserManager.Utente != null)
+            {
+                @foreach (var userMessagesDictionary in MessagesManager.Messaggi.Where(_ => _.Key != "").ToList().Select(_ => new KeyValuePair<string, IEnumerable<Messaggio>>(_.Key, _.Value.Where(__ => !__.Letto && __.Mittente.Username != UserManager.Utente.Username))))
+                {
+                    @if (userMessagesDictionary.Value.Any())
+                    {
+                        <NavLink class="nav-link" href="@GetUserLink(userMessagesDictionary.Key)" Match="NavLinkMatch.All">
+                            <span class="oi oi-person" aria-hidden="true"></span>@userMessagesDictionary.Key<i class="notificationBubble">@userMessagesDictionary.Value.Count()</i>
+                        </NavLink>
+                    }
+                }
+            }
+        </div>
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected async void AggiornaUI()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected override void OnInitialized()
+    {
+        UserManager.OnUserChanged += AggiornaUI;
+        MessagesManager.OnMessageRecieved += AggiornaUI;
+        base.OnInitialized();
+    }
+
+    private string GetUserLink(string uUsername)
+    {
+        return "/chatglobale/" + uUsername;
+    }
+
+}

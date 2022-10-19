@@ -1,0 +1,55 @@
+﻿@page "/Login"
+@inject UserManager UserManager
+@inject NavigationManager NavigationManager
+@inject IToastService ToastService
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+
+<!-- Navigation manager classe già presente che injecti per spostarti tra le classi-->
+<!-- Classe Login ti permette di loggare conoscendo username e password-->
+<div class="center">
+    <div class="card">
+        <h3>Login</h3>
+        <label>Username:</label><input type="text" @bind="@Username"/><br/>
+        <label>Password:</label><input type="text" @bind="@Password"/><br/>
+        <button class="btn-primary" @onclick="_ => UserManager.HandleLogin(Username, Password)">Login</button>
+    </div>
+    @Controllo
+</div>
+
+@code {
+    public string Username { get; set; }
+    public string Password { get; set; }
+    public string Controllo { get; set; } = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (await localStorage.GetItemAsync<string>("username") != "" )
+        {
+            var u = await localStorage.GetItemAsync<string>("username");
+            var p = await localStorage.GetItemAsync<string>("password");
+            UserManager.HandleLogin(u,p);
+        }
+        UserManager.OnUserChanged += HandleUserChanged;
+        UserManager.OnErrorLogin += HandleError;
+        await base.OnInitializedAsync();
+    }
+    private void HandleError()
+    {
+        ToastService.ShowError("ERRORE:Username o password sbagliati");
+    }
+    private void HandleUserChanged()
+    {
+        if (UserManager.Utente != null)
+        {
+            localStorage.SetItemAsync("username", UserManager.Utente!.Username);
+            localStorage.SetItemAsync("password", UserManager.Utente!.Password);
+            NavigationManager.NavigateTo("/");
+        }
+        else//non dovrebbe mai andarci
+        {
+            Controllo = "Username o password non corretti!";
+        }
+    }
+
+}

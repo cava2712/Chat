@@ -1,0 +1,97 @@
+﻿@page "/Profilo"
+@using Chat.Shared
+@using System.Net
+@inject HttpClient HttpClient
+@inject UserManager UserManager
+@inject IToastService ToastService
+@inject NavigationManager NavigationManager
+ 
+<!-- Pagina del profilo utente dove può modificare i propri dati tranne l'username che è la chiave primaria e il token che non vede-->
+<div class="Abbassa">
+    <div class="center">
+        <div class="card">
+            <h3>Profilo</h3>
+            <label>Username:</label><input type="text" @bind="Username"/>
+            <label>Password:</label><input type="text" @bind="Password"/>
+            <label>Via:</label><input type="text" @bind="Via"/>
+            <label>Cap:</label><input type="text" @bind="Cap"/>
+            <label>Città:</label><input type="text" @bind="Città"/>
+            <label>Nazione:</label><input type="text" @bind="Nazione"/>
+            <button class="btn-primary" @onclick="OnAggiornaDati">Aggiorna dati</button>
+        </div>
+    </div>
+</div>
+
+
+
+@code { 
+    public string? Username { get; set; }
+    public string? Password { get; set; }
+    public string? Via { get; set; }
+    public int? Cap { get; set; }
+    public string? Città { get; set; }
+    public string? Nazione { get; set; }
+
+    protected override Task OnParametersSetAsync()
+    {
+        if (UserManager.Utente == null)
+        {
+            NavigationManager.NavigateTo("/");
+            return base.OnParametersSetAsync();
+        }
+        return base.OnParametersSetAsync();
+    }
+
+    protected override async void OnInitialized() //da errore
+    {
+        try //try perchè in caso non abbia l'indirizzo ti da errore perchè prova es a tirare fuori la via da esso
+        {
+            Username = UserManager.Utente!.Username;
+            Password = UserManager.Utente.Password;
+            Via = UserManager.Utente.Indirizzo.Via;
+            Nazione = UserManager.Utente.Indirizzo.Nazione;
+            Cap = UserManager.Utente.Indirizzo.Cap;
+            Città = UserManager.Utente.Indirizzo.Città;
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (Exception e)
+        {
+        }
+        await base.OnInitializedAsync();
+    }
+
+    public async void OnAggiornaDati()
+    {
+        Utente u = new Utente();
+        u.Indirizzo = new Indirizzo();
+        try
+        {
+            u.Username = UserManager.Utente!.Username;
+            u.Password = Password;
+            u.Token = UserManager.Utente.Token;
+            u.Indirizzo.Cap = Cap ?? -1;
+            u.Indirizzo.Città = Città;
+            u.Indirizzo.Nazione = Nazione;
+            u.Indirizzo.Via = Via;
+        }
+        catch (Exception e)
+        {
+            ToastService.ShowError("ERRORE:C'è stato un errore nella modifica dei dati");
+            return;
+        }
+
+        var a = await HttpClient.PutAsJsonAsync("api/utenti/aggiorna", u);
+        if (a.StatusCode == HttpStatusCode.OK)
+        {
+            var token = UserManager.Utente.Token;
+            UserManager.Utente = await a.Content.ReadFromJsonAsync<Utente>();
+            UserManager.Utente!.Token = token;
+            ToastService.ShowSuccess("Dati cambiati correttamente!!!", "Congratulations!");
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            ToastService.ShowError("ERRORE:C'è stato un errore nella modifica dei dati");
+        }
+    }
+}

@@ -1,0 +1,60 @@
+﻿@using Blazored.Toast.Configuration
+@inherits LayoutComponentBase
+@inject UserManager UserManager
+@inject NavigationManager NavigationManager
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu/>
+    </div>
+ 
+    <main>
+        <div class="top-row px-4" >
+            @if (UserManager.Utente == null)
+            {
+                <NavLink class="nav-link" href="/login" Match="NavLinkMatch.All">
+                    Login
+                </NavLink>
+                <NavLink class="nav-link" href="/register" Match="NavLinkMatch.All">
+                    Register
+                </NavLink>
+            }
+            else
+            {
+                <button class="nav-link" @onclick="UserManager.HandleLogout">Esci </button>
+                <button class="nav-link" @onclick="ClickProfilo">
+                    Profilo:@UserManager.Utente.Username
+                </button>
+            }
+        </div>
+        <div class="content">
+            @Body
+            <BlazoredToasts Position="ToastPosition.BottomRight"
+                            Timeout="5"
+                            ShowProgressBar="true" />
+        </div>
+    </main>
+</div>
+
+@code{
+
+    protected override Task OnInitializedAsync()
+    {
+        UserManager.OnUserChanged += HandleUserChanged;
+        return base.OnInitializedAsync();
+    }
+
+    private void HandleUserChanged()
+    {
+        if (UserManager.Utente == null)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+    }
+
+    private void ClickProfilo()
+    {
+        NavigationManager.NavigateTo("/profilo");
+    }
+
+}

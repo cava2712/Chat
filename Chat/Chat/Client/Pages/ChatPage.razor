@@ -1,0 +1,87 @@
+﻿@page "/ChatGlobale/{AltroUtente?}"
+@inject UserManager UserManager
+@inject MessagesManager MessagesManager
+@inject NavigationManager NavigationManager
+@inject IJSRuntime Js
+<!-- classe che mostra la chat sia globale sia tra privati, puoi accedere a questa pagina solo se sei loggato con un utente e non puoi accedere alla chat privata con te stesso-->
+
+<div id="chatpage">
+    
+        @if (AltroUtente != null)
+        {
+            <p style="font-size: 1.5rem; margin-bottom: 0;margin-top: 0;padding-left: 1rem">@AltroUtente</p> 
+        }
+        else 
+        {
+            <p style="font-size: 1.5rem; margin-bottom: 0;margin-top: 0;padding-left: 1rem">Chat Globale</p> 
+        }
+    
+    <div id="chat">
+        @if (UserManager.Utente != null) //abbiamo tutti i messaggi globali e privati(con mittente o destinatario me) [(AltroUtente || UserManager.Utente!.Username ) ?? ""]
+        {
+            if (MessagesManager.Messaggi.ContainsKey(AltroUtente ?? "")) 
+            {
+                foreach (var msg in MessagesManager.Messaggi[AltroUtente ?? ""])
+                {
+                    if (msg.Mittente.Username == UserManager.Utente.Username) //destra
+                    {
+                        <div style="width: 100%;display: flex; justify-content: flex-end;">
+                            <p>@msg.Data.ToString("H:mm:ss") @msg.Mittente.Username: @msg.Testo</p>
+                        </div>
+                    }
+                    else //sinistra
+                    {
+                        <div style="width: 100%;display: flex; justify-content: flex-start;">
+                            <p>@msg.Data.ToString("H:mm:ss") @msg.Mittente.Username: @msg.Testo</p>
+                        </div>
+                    }
+                }
+            }
+        }
+    </div>
+    <div id="controls">
+        <input name="testo" @bind="Testo" style="width: 100%;height: 40px"/>
+        <button class="btn-primary" @onclick="_ => MessagesManager.HandleNewMessageCreate(Testo, AltroUtente)"> invia </button>
+    </div>
+</div>
+
+@Controllo
+
+@code {
+
+    [Parameter] //facciamo questo utente che tiene l'username dell'utente con cui facciao la chat privata e prende il nome direttamente dall'url
+    public string? AltroUtente { get; set; } //se null allora e' chat globale altrimenti hai gia l'username qui
+
+    public string Testo { get; set; }
+    public string Controllo { get; set; }
+    
+    
+    protected async void AggiornaUi()
+    {
+        //Controllo = NavigationManager.Uri;
+        await InvokeAsync(StateHasChanged);
+        if (NavigationManager.Uri.Contains("chatglobale"))
+            await Js.InvokeVoidAsync("scrollToEnd");
+        //NavigationManager.Uri.ToString() == "https://localhost:7049/chatglobale" || NavigationManager.Uri.Equals("https://localhost:7049/chatglobale" + UserManager.Utente!.Username
+    }
+
+    protected override Task OnParametersSetAsync()
+    {
+        if (UserManager.Utente == null)
+        {
+            NavigationManager.NavigateTo("/");
+            return base.OnParametersSetAsync();
+        }
+        if (AltroUtente == null) return base.OnParametersSetAsync();
+        MessagesManager.HandleMessagesRead(AltroUtente);
+        return base.OnParametersSetAsync();
+    }
+
+    protected override async Task<Task> OnInitializedAsync()
+    {
+    //se l'utente non è loggato vieni reindirizzato alla pagina radice
+        MessagesManager.OnMessageRecieved += AggiornaUi;
+        return base.OnInitializedAsync();
+    }
+
+}

@@ -1,0 +1,83 @@
+﻿@page "/Fatture/{AltroUtente}"
+@using Chat.Shared
+@using System.Net
+@inject HttpClient HttpClient
+@inject UserManager UserManager
+@inject FattureManager FattureManager
+@inject NavigationManager NavigationManager
+<!-- classe che mostra le fatture inviate agli utenti, puoi accedere a questa pagina solo se sei loggato con un utente e con un destinatario -->
+
+<div id="chatpage">
+    <div class="card">
+        <table>
+            <tr>
+                <th>Mittente</th>
+                <th>Destinatario</th>
+                <th>Data</th>
+                <th>Descrizione</th>
+                <th>Prezzo no iva</th>
+                <th>iva</th>
+                <th>Prezzo con iva</th>
+            </tr>
+            @foreach (var fattura in FattureManager.Fatture.Where(_ => _.Destinatario != null && _.Destinatario.Username == AltroUtente && _.Mittente.Username == UserManager.Utente!.Username))
+            {
+                <tr >
+                    <td>
+                        <label>@fattura.Mittente.Username</label>
+                    </td>
+                    <td>
+                        <label>@fattura.Destinatario!.Username</label>
+                    </td>
+                    <td>
+                        <label>@fattura.Data</label>
+                    </td>
+                    <td >
+                        <label>@fattura.Descrizione</label>
+                    </td>
+                    <td>
+                        <label>@fattura.PrezzoNoIva</label>
+                    </td>
+                    <td>
+                        <label>@fattura.Iva</label>
+                    </td>
+                    <td>
+                        <label>@fattura.PrezzoFinale</label>
+                    </td>
+                </tr>
+            }
+        </table>
+        <button name="NuovaFattura" class="btn-primary" @onclick="OnNuovaFattura"> NuovaFattura </button>
+    </div>
+</div>
+@Controllo
+
+@code {
+
+    [Parameter] //facciamo questo utente che tiene l'username dell'utente con cui faccio la chat privata e prende il nome direttamente dall'url
+    public string? AltroUtente { get; set; } //se null allora e' chat globale altrimenti hai gia l'username qui
+
+    public string Testo { get; set; }
+    public string Controllo { get; set; }
+
+    public async void OnNuovaFattura()
+    {
+        NavigationManager.NavigateTo("/NuovaFattura/" + AltroUtente);
+    }
+
+    protected async void AggiornaUI()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+    //se l'utente non è loggato vieni reindirizzato alla pagina radice
+        if (UserManager.Utente == null || AltroUtente == UserManager.Utente.Username)
+            NavigationManager.NavigateTo("/");
+        FattureManager.FatturePolling(); //faccio ripartire il polling quando entro dentro a questa page perchè se cambio utente si stoppa il polling
+        FattureManager.OnFattureRecieved += AggiornaUI;
+        return base.OnInitializedAsync();
+    }
+
+
+}

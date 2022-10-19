@@ -1,0 +1,70 @@
+﻿@page "/NuovaFattura/{AltroUtente}"
+@using Chat.Shared
+@using System.Net
+@inject IToastService ToastService
+@inject HttpClient HttpClient
+@inject UserManager UserManager
+@inject NavigationManager NavigationManager
+
+<!-- classe che ti permette di fare una nuova fattura all'utente di cui stai guardando le fatture -->
+
+<div id="fatturapage" class="card">
+    <label>Mittente:</label>@UserManager.Utente!.Username <br/>
+    <label>Destinatario:</label> @AltroUtente<br/>
+    <textarea @bind="@Descrizione" ></textarea><br/>
+    <label>Prezzo no iva:</label><input type="number" @bind="@Prezzo"/>
+    <label>Iva:</label>
+    <select id="iva" @bind="@Iva">
+        <option value="22" selected>22 </option>
+        <option value="10">10 </option>
+    </select>
+    <label>Prezzo con iva:</label><input type="text" readonly value="@PrezzoPiùIva"/>
+    <div id="controls">
+        <button name="InviaFattura" class="btn-primary" @onclick="OnInviaFattura"> Invia </button>
+        <button name="Back" class="btn-primary" @onclick="OnReturn"> Back </button>
+    </div>
+</div>
+
+@Controllo
+
+@code {
+
+    [Parameter] //facciamo questo utente che tiene l'username dell'utente con cui faccio la fattura e prende il nome direttamente dall'url
+    public string AltroUtente { get; set; }
+
+    public string Descrizione { get; set; }
+    public float Prezzo { get; set; }
+    public int Iva { get; set; }
+    public float PrezzoPiùIva => Prezzo + Prezzo / 100 * Iva;
+    public string Controllo { get; set; }
+
+    public async void OnInviaFattura()
+    {
+    //chiamata post fattura
+        FatturaDTO NewFattura = new FatturaDTO();
+        NewFattura.TokenMittente = UserManager.Utente.Token!;
+        NewFattura.UsernameDestinatario = AltroUtente;
+        NewFattura.Descrizione = Descrizione;
+        NewFattura.PrezzoNoIva = Prezzo;
+        NewFattura.Iva = Iva;
+        var a = await HttpClient.PostAsJsonAsync("api/fatture", NewFattura);
+        if (a.StatusCode != HttpStatusCode.OK)
+        {
+            ToastService.ShowError("ERRORE:non sono riuscito a creare la fattura");
+        }
+        ToastService.ShowSuccess("Fattura create correttamente", "Congratulations!");
+        AggiornaUI();
+    }
+
+    public async void OnReturn()
+    {
+    //chiamata post fattura
+        NavigationManager.NavigateTo("/fatture/" + AltroUtente);
+    }
+
+    protected async void AggiornaUI()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+}

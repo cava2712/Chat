@@ -1,0 +1,12 @@
+﻿table{
+    width: 100%;
+    table-layout: fixed;
+}
+tr{
+    border-bottom: 1px solid lightgray;
+}
+td{
+    white-space:normal;
+    word-wrap: anywhere;
+    width: 150px;
+}

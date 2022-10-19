@@ -1,0 +1,302 @@
+/* /Pages/ChatPage.razor.rz.scp.css */
+#chatpage[b-f3njax9ozl]{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+#chat[b-f3njax9ozl]{
+    width: 100%;
+    height: 100%;
+    max-height: calc(100vh - 40px - 6rem);
+    overflow-y: scroll;
+    padding: 1rem 1rem;
+}
+[b-f3njax9ozl]::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+[b-f3njax9ozl]::-webkit-scrollbar-track {
+    background: gainsboro;
+    border-radius: 5px;
+}
+
+/* Handle */
+[b-f3njax9ozl]::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+[b-f3njax9ozl]::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+#controls[b-f3njax9ozl]{
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+}
+/* /Pages/ContattiPage.razor.rz.scp.css */
+table[b-eqdgjsfyud]{
+    width: 100%;
+    table-layout: fixed;
+}
+tr[b-eqdgjsfyud]{
+    border-bottom: 1px solid lightgray;
+}
+td[b-eqdgjsfyud]{
+    white-space:normal;
+    word-wrap: anywhere;
+    width: 150px;
+}
+/* /Pages/FattureInviateUtentePage.razor.rz.scp.css */
+table[b-mndbc82m9t]{
+    width: 100%;
+    table-layout: fixed;
+}
+tr[b-mndbc82m9t]{
+    border-bottom: 1px solid lightgray;
+}
+td[b-mndbc82m9t]{
+    white-space:normal;
+    word-wrap: anywhere;
+    width: 150px;
+}
+/* /Pages/FattureRicevutePage.razor.rz.scp.css */
+table[b-xrgkw5k14k]{
+    width: 100%;
+    table-layout: fixed;
+}
+tr[b-xrgkw5k14k]{
+    border-bottom: 1px solid lightgray;
+}
+td[b-xrgkw5k14k]{
+    white-space:normal;
+    word-wrap: anywhere;
+    width: 150px;
+}
+/* /Pages/Login.razor.rz.scp.css */
+
+label[b-6t68uyipyd]{
+    display: inline-block;
+    text-align:left;
+    width:150px;
+
+}
+button[b-6t68uyipyd]{
+    margin-top: 1rem;
+}
+/* /Pages/Nuovafattura.razor.rz.scp.css */
+label[b-q3emonsu28]{
+    display: inline-block;
+    text-align:left;
+    width:150px;
+    font-weight: bold;
+}
+textarea[b-q3emonsu28]{
+    width: 100%;
+    min-height: 200px;
+}
+/* /Pages/ProfiloPage.razor.rz.scp.css */
+label[b-2r15ur73q7]{
+    display: inline-block;
+    text-align:left;
+    width:150px;
+
+}
+.Abbassa[b-2r15ur73q7]
+{
+    position: relative;
+    top:2.5rem;
+}
+/* /Pages/Register.razor.rz.scp.css */
+label[b-04zeadqxj2]{
+    display: inline-block;
+    text-align:left;
+    width:150px;
+
+}
+/* /Shared/MainLayout.razor.rz.scp.css */
+.page[b-5je41sr912] {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--chat-color-missingno);
+    overflow: clip;
+}
+
+main[b-5je41sr912] {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: clip;
+}
+
+.content[b-5je41sr912]{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: clip;
+    background-color: var(--chat-color-background);
+    color: var(--chat-color-onbackground);
+    overflow-y: scroll;
+    max-height: calc(100vh - 3.5rem);
+}
+
+.sidebar[b-5je41sr912] {
+    background-color: var(--chat-color-primary);
+    color: var(--chat-color-onprimary);
+}
+
+.top-row[b-5je41sr912] {
+    width: 100%;
+    background-color: var(--chat-color-surface);
+    color: var(--chat-color-onsurface);
+    border-bottom: #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+    .top-row[b-5je41sr912]  a, .top-row[b-5je41sr912]  .btn-link {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+        text-decoration: none;
+    }
+
+    .top-row[b-5je41sr912]  a:hover, .top-row[b-5je41sr912]  .btn-link:hover {
+        text-decoration: underline;
+    }
+
+    .top-row[b-5je41sr912]  a:first-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-5je41sr912] {
+        display: none;
+    }
+
+    .top-row.auth[b-5je41sr912] {
+        justify-content: space-between;
+    }
+
+    .top-row[b-5je41sr912]  a, .top-row[b-5je41sr912]  .btn-link {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-5je41sr912] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-5je41sr912] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-5je41sr912] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .top-row.auth[b-5je41sr912]  a:first-child {
+        flex: 1;
+        text-align: right;
+        width: 0;
+    }
+
+    .top-row[b-5je41sr912] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+/* /Shared/NavMenu.razor.rz.scp.css */
+.navbar-toggler[b-zolpbgkh3v] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.top-row[b-zolpbgkh3v] {
+    height: 3.5rem;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.navbar-brand[b-zolpbgkh3v] {
+    font-size: 1.1rem;
+}
+
+.oi[b-zolpbgkh3v] {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.nav-item[b-zolpbgkh3v] {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+    .nav-item:first-of-type[b-zolpbgkh3v] {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type[b-zolpbgkh3v] {
+        padding-bottom: 1rem;
+    }
+
+    .nav-item[b-zolpbgkh3v]  a {
+        border-radius: 4px;
+        height: 3rem;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: stretch;
+    }
+
+.nav-item[b-zolpbgkh3v]  a.active {
+    background-color: rgba(255,255,255,0.25);
+}
+
+.nav-item[b-zolpbgkh3v]  a:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+
+.notificationBubble[b-zolpbgkh3v]{
+    position: absolute;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    border-radius: 100%;
+    padding: 1px;
+    float:right;
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-zolpbgkh3v] {
+        display: none;
+    }
+
+    .collapse[b-zolpbgkh3v] {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+}

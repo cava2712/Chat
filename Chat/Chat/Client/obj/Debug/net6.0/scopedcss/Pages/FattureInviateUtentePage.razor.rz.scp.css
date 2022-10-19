@@ -1,0 +1,12 @@
+table[b-mndbc82m9t]{
+    width: 100%;
+    table-layout: fixed;
+}
+tr[b-mndbc82m9t]{
+    border-bottom: 1px solid lightgray;
+}
+td[b-mndbc82m9t]{
+    white-space:normal;
+    word-wrap: anywhere;
+    width: 150px;
+}

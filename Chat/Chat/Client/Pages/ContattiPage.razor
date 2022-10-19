@@ -1,0 +1,95 @@
+﻿@page "/"
+@using Chat.Shared
+@inject HttpClient HttpClient
+@inject UserManager UserManager
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+<!-- classe che mostra la lista degli utenti presenti, cliccando su un utente puoi accedere alla chat privata con  lui-->
+<!-- è anche la chat radice da dove parte la mia app-->
+
+<div class="card">
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Via</th>
+            <th>Città</th>
+            <th>Nazione</th>
+            <th>Fattura</th>
+        </tr>
+        @foreach (var u in Utenti.Where(_ => _.Username != UserManager.Utente?.Username))
+        {
+            <tr>
+                <td>
+                    <NavLink class="nav-link" href="@GetUserLink(u.Username)" Match="NavLinkMatch.All">
+                        <span class="oi oi-person" aria-hidden="true"></span>@u.Username
+                    </NavLink>
+                </td>
+                @if (u.Indirizzo != null)
+                {
+                    <td>
+                        <label>@u.Indirizzo.Via</label>
+                    </td>
+                    <td>
+                        <label>@u.Indirizzo.Città</label>
+                    </td>
+                    <td>
+                        <label>@u.Indirizzo.Nazione</label> <br/>
+                    </td>
+                }
+                else
+                {
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                }
+                <td>
+                    <NavLink class="nav-link" href="@GetFattureLink(u.Username)" Match="NavLinkMatch.All">
+                        <span class="oi oi-envelope-closed" aria-hidden="true"></span>Vedi
+                    </NavLink>
+                </td>
+            </tr>
+        }
+    </table>
+    @controllo
+</div>
+
+@code {
+    public List<Utente> Utenti { get; set; } = new();
+    public string controllo;
+
+    public async void AggiornaUi()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected async override Task<Task> OnInitializedAsync()
+    {
+        UsersPolling();
+        return base.OnInitializedAsync();
+    }
+
+    protected async void ReadUsers()
+    {
+        Utenti = (await HttpClient.GetFromJsonAsync<List<Utente>>("api/utenti"))!;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected async Task UsersPolling()
+    {
+        while (true)
+        {
+            ReadUsers();
+            await Task.Delay(5000);
+        }
+    }
+
+    private string GetUserLink(string uUsername)
+    {
+        return "/chatglobale/"+uUsername;
+    }
+    private string GetFattureLink(string uUsername)
+    {
+        return "/fatture/"+uUsername;
+    }
+
+}

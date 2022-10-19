@@ -1,0 +1,42 @@
+#chatpage[b-f3njax9ozl]{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+#chat[b-f3njax9ozl]{
+    width: 100%;
+    height: 100%;
+    max-height: calc(100vh - 40px - 6rem);
+    overflow-y: scroll;
+    padding: 1rem 1rem;
+}
+[b-f3njax9ozl]::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+[b-f3njax9ozl]::-webkit-scrollbar-track {
+    background: gainsboro;
+    border-radius: 5px;
+}
+
+/* Handle */
+[b-f3njax9ozl]::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+[b-f3njax9ozl]::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+#controls[b-f3njax9ozl]{
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+}

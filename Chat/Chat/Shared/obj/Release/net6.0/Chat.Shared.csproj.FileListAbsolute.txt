@@ -1,0 +1,12 @@
+C:\Users\thefa\source\repos\Chat\Chat\Shared\bin\Release\net6.0\Chat.Shared.deps.json
+C:\Users\thefa\source\repos\Chat\Chat\Shared\bin\Release\net6.0\Chat.Shared.dll
+C:\Users\thefa\source\repos\Chat\Chat\Shared\bin\Release\net6.0\Chat.Shared.pdb
+C:\Users\thefa\source\repos\Chat\Chat\Shared\obj\Release\net6.0\Chat.Shared.csproj.AssemblyReference.cache
+C:\Users\thefa\source\repos\Chat\Chat\Shared\obj\Release\net6.0\Chat.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\thefa\source\repos\Chat\Chat\Shared\obj\Release\net6.0\Chat.Shared.AssemblyInfoInputs.cache
+C:\Users\thefa\source\repos\Chat\Chat\Shared\obj\Release\net6.0\Chat.Shared.AssemblyInfo.cs
+C:\Users\thefa\source\repos\Chat\Chat\Shared\obj\Release\net6.0\Chat.Shared.csproj.CoreCompileInputs.cache
+C:\Users\thefa\source\repos\Chat\Chat\Shared\obj\Release\net6.0\Chat.Shared.dll
+C:\Users\thefa\source\repos\Chat\Chat\Shared\obj\Release\net6.0\refint\Chat.Shared.dll
+C:\Users\thefa\source\repos\Chat\Chat\Shared\obj\Release\net6.0\Chat.Shared.pdb
+C:\Users\thefa\source\repos\Chat\Chat\Shared\obj\Release\net6.0\ref\Chat.Shared.dll

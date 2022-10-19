@@ -1,0 +1,10 @@
+label[b-q3emonsu28]{
+    display: inline-block;
+    text-align:left;
+    width:150px;
+    font-weight: bold;
+}
+textarea[b-q3emonsu28]{
+    width: 100%;
+    min-height: 200px;
+}

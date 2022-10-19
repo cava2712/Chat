@@ -1,0 +1,71 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = browser
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = true
+build_property.IncludeAllContentForSelfExtract = 
+build_property.RootNamespace = Chat.Client
+build_property.RootNamespace = Chat.Client
+build_property.ProjectDir = C:\Users\thefa\source\repos\Chat\Chat\Client\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\thefa\source\repos\Chat\Chat\Client
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/thefa/source/repos/Chat/Chat/Client/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/thefa/source/repos/Chat/Chat/Client/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/thefa/source/repos/Chat/Chat/Client/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/thefa/source/repos/Chat/Chat/Client/Pages/ChatPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hhdFBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-f3njax9ozl
+
+[C:/Users/thefa/source/repos/Chat/Chat/Client/Pages/ContattiPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29udGF0dGlQYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-eqdgjsfyud
+
+[C:/Users/thefa/source/repos/Chat/Chat/Client/Pages/FattureInviateUtentePage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmF0dHVyZUludmlhdGVVdGVudGVQYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-mndbc82m9t
+
+[C:/Users/thefa/source/repos/Chat/Chat/Client/Pages/FattureRicevutePage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmF0dHVyZVJpY2V2dXRlUGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-xrgkw5k14k
+
+[C:/Users/thefa/source/repos/Chat/Chat/Client/Pages/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-6t68uyipyd
+
+[C:/Users/thefa/source/repos/Chat/Chat/Client/Pages/NuovaFattura.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTnVvdmFGYXR0dXJhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-q3emonsu28
+
+[C:/Users/thefa/source/repos/Chat/Chat/Client/Pages/ProfiloPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZmlsb1BhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-2r15ur73q7
+
+[C:/Users/thefa/source/repos/Chat/Chat/Client/Pages/Register.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-04zeadqxj2
+
+[C:/Users/thefa/source/repos/Chat/Chat/Client/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-5je41sr912
+
+[C:/Users/thefa/source/repos/Chat/Chat/Client/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-zolpbgkh3v
